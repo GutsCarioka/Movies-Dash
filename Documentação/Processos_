@@ -1,0 +1,12 @@
+Foram criados no dia 11/03
+-Requisição API V3 Auth
+-Tratamento dos dados puxados
+-Criação de um Async Function FUNCIONAL
+-passada dos dados de forma dinamica para o HTML
+
+Proximos Passos
+
+- Tratar demais dados do results da API
+- Criar uma aba que mostre os filmes selecionados mais populares
+- Verificar alteração de pagina
+- ler documentação API
