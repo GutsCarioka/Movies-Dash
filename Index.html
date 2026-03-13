@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DashMovies</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="./JavaScript/main.js"></script>
   </head>
   <body>
-    <header></header>
+    <header id="head">
+      <div>
+        <img src="#" alt="Home img" />
+        <input type="search" name="search" id="pesq" />
+        <button onclick="pesquisa()">Pesquisar</button>
+      </div>
+    </header>
     <section>
       <h1 id="title"></h1>
+      <img src="" alt="Movie Poster" id="poster_path" />
       <p id="original_title"></p>
       <p id="release_date"></p>
-      <img src="" alt="Movie Poster" id="poster_path" />
     </section>
     <footer></footer>
-    <script src="./JavaScript/main.js"></script>
   </body>
 </html>
