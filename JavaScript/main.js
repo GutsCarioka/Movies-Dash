@@ -26,14 +26,12 @@ async function getPopularMovies(number_movie) {
 
     window.document.getElementById("poster_path").src =
       `https://image.tmdb.org/t/p/w500${movies.poster_path}`;
-
-    // console.log(data.results[0]);
   } catch (error) {
     console.error("error ao buscar filmes populares:", error);
   }
 }
 
-getPopularMovies(0);
+getPopularMovies(4);
 
 const botao = document.getElementById("meuBotao");
 botao.onclick = function () {
