@@ -9,9 +9,9 @@ async function getPopularMovies() {
       `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=pt-BR`,
     );
     const data = await response.json();
-    const movies = data.results[7];
+    const movies = data.results[1];
     const page = data.page;
-   
+
     const title1 = window.document.getElementById("title");
     title1.innerHTML = movies.title;
 
@@ -21,9 +21,8 @@ async function getPopularMovies() {
     const releaseDate1 = window.document.getElementById("release_date");
     releaseDate1.innerHTML = movies.release_date;
 
-    const posterPath1 = window.document.getElementById("poster_path");
-    posterPath1.innerHTML = `<img src="https://image.tmdb.org/t/p/w500${movies.poster_path}" alt="${movies.title}">`;
-
+    window.document.getElementById("poster_path").src = `https://image.tmdb.org/t/p/w500${movies.poster_path}`;
+    
     // console.log(data.results[0]);
   } catch (error) {
     console.error("error ao buscar filmes populares:", error);
