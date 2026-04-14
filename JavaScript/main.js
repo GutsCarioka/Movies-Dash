@@ -8,40 +8,33 @@ async function getPopularMovies(number_movie) {
       `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=pt-BR`,
     );
     const data = await response.json();
-<<<<<<< HEAD
-    const movies = data.results[1];
-=======
+    
     const movies = data.results[number_movie];
-    const moviesTitles = movies.title;
->>>>>>> 9bc1899e8ea861858a9151a7033434300ff2e20b
     const page = data.page;
+    const subtile1 = window.document.getElementById("subtitle");
+   subtile1.innerHTML = movies.overview;
 
     const title1 = window.document.getElementById("title");
     title1.innerHTML = movies.title;
-
     const OriginalTitle1 = window.document.getElementById("original_title");
     OriginalTitle1.innerHTML = movies.original_title;
 
     const releaseDate1 = window.document.getElementById("release_date");
     releaseDate1.innerHTML = movies.release_date;
 
-<<<<<<< HEAD
-    window.document.getElementById("poster_path").src = `https://image.tmdb.org/t/p/w500${movies.poster_path}`;
-    
-    // console.log(data.results[0]);
-=======
-    const subtitle1 = window.document.getElementById("subtitle");
-    subtitle1.innerHTML = movies.overview;
-
     window.document.getElementById("poster_path").src =
       `https://image.tmdb.org/t/p/w500${movies.poster_path}`;
->>>>>>> 9bc1899e8ea861858a9151a7033434300ff2e20b
+    
+    window.document.getElementById("Backdrop_path").src =
+      `https://image.tmdb.org/t/p/w500${movies.backdrop_path}`;
+
+    // console.log(data.results[0]);
   } catch (error) {
     console.error("error ao buscar filmes populares:", error);
   }
 }
 
-getPopularMovies(4);
+getPopularMovies(0);
 
 const botao = document.getElementById("meuBotao");
 botao.onclick = function () {

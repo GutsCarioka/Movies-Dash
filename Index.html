@@ -4,12 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DashMovies</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./Css/style.css" />
   </head>
   <body>
     <header id="head">
-      <div id="titleHead"><h3>Unfair note</h3></div>
-      <img src="./Img/Icon_Header.png" alt="Home img" style="width: 30px" />
+      <div id="logo">
+        <img
+          src="./Assets/Img/Icon_Header.png"
+          alt="Home img"
+          style="width: 30px"
+        />
+        <div id="titleHead"><h3>Unfair note</h3></div>
+      </div>
+      <div id="nav">
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Filmes</a></li>
+            <li><a href="#">Filmes populares</a></li>
+          </ul>
+        </nav>
+      </div>
+
       <div>
         <input
           type="search"
@@ -20,15 +36,23 @@
         <button id="meuBotao">Pesquisar</button>
       </div>
     </header>
-    <section class="popMoviessection">
-      <div id="Movies">
-        <h1 id="title"></h1>
-        <p id="subtitle"></p>
-        <img src="" alt="Movie Poster" id="poster_path" />
-        <p id="original_title"></p>
-        <p id="release_date"></p>
+
+    <main class="popMoviessection">
+      <div id="Movie_info">
+        <div>
+          <img src="" alt="Movie Poster" id="poster_path" />
+          <p id="original_title"></p>
+          <p id="release_date"></p>
+        </div>
+        <div>
+          <h1 id="title"></h1>
+          <p id="subtitle"></p>
+        </div>
+        
+        
+        
       </div>
-    </section>
+    </main>
     <footer></footer>
     <script src="./JavaScript/main.js"></script>
   </body>
