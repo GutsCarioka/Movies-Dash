@@ -46,3 +46,19 @@ main {
 #subtitle {
   padding-left: 20px;
 }
+
+#resultados {
+  background: #222;
+  position: absolute;
+  width: 300px;
+}
+
+.item-resultado {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #444;
+}
+
+.item-resultado:hover {
+  background: #333;
+}
