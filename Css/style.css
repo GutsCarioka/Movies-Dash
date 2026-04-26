@@ -26,12 +26,25 @@
 }
 main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
+  padding-top: 10vh;
 }
+
+#Backdrop {
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  padding-bottom: 20vh;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  width: 100%;
+  height: auto;
+  border: red solid 2px;
+}
+
 #Movie_info {
-  padding-top: 400px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

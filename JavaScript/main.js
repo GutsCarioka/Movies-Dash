@@ -12,7 +12,7 @@ async function getPopularMovies() {
 
     const data = await response.json();
     listaFilmes = data.results;
-    mostrarFilme(listaFilmes[0]);
+    mostrarFilme(listaFilmes[2]);
   } catch (error) {
     console.error("error ao buscar filmes populares:", error);
   }
@@ -31,8 +31,8 @@ function mostrarFilme(movie) {
   window.document.getElementById("poster_path").src =
     `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
-  //window.document.getElementById("Backdrop_path").src =
-  //`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+  window.document.getElementById("Backdrop_path").src =
+    `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
 }
 //Function de requisicao de filmes para pesquisa
 async function buscarFilmes(query) {
@@ -55,44 +55,6 @@ async function buscarFilmes(query) {
   }
 }
 
-//função de Busca de filmes
-
-function mostrarResultados(filmes) {
-  if (!filmes || filmes.length === 0) return;
-
-  const container = document.getElementById("resultados");
-  container.innerHTML = "";
-
-  filmes.slice(0, 5).forEach((filme) => {
-    const div = document.createElement("div");
-    div.textContent = filme.title;
-
-    div.style.cursor = "pointer";
-
-    div.onclick = () => {
-      mostrarFilme(filme);
-      container.innerHTML = ""; // limpa sugestões
-    };
-
-    container.appendChild(div);
-  });
-}
-
-input.addEventListener("input", () => {
-  clearTimeout(timeout);
-
-  const valor = input.value;
-
-  if (valor.length <= 2) {
-    document.getElementById("resultados").innerHTML = "";
-    return;
-  }
-
-  timeout = setTimeout(() => {
-    buscarFilmes(valor);
-  }, 300);
-});
-
 /*const botao = document.getElementById("meuBotao");
 
 botao.onclick = function () {
@@ -108,4 +70,5 @@ botao.onclick = function () {
   }
 };
 */
+
 getPopularMovies();
