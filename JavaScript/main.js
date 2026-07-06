@@ -5,6 +5,7 @@ const TOKEN =
 const BASE_URL = "https://api.themoviedb.org/3";
 const input = document.getElementById("pesq");
 let timeout = null;
+
 //Variavel Global que vai armazenar a lista de filmes populares retornada pela API, permitindo que seja acessada e manipulada em diferentes partes do código conforme necessário.
 let listaFilmes = [];
 
@@ -24,27 +25,28 @@ async function getPopularMovies() {
 
     mostrarFilme(listaFilmes[0]);
   } catch (error) {
-    console.error("error ao buscar filmes populares:", error);
+    console.error("Erro ao buscar filmes populares:", error);
   }
 }
 
 function mostrarFilme(movie) {
   document.getElementById("subtitle").innerHTML = movie.overview;
 
-  window.document.getElementById("title").innerHTML = movie.title;
+  document.getElementById("title").innerHTML = movie.title;
 
-  window.document.getElementById("original_title").innerHTML =
-    movie.original_title;
+  document.getElementById("original_title").innerHTML = movie.original_title;
 
-  window.document.getElementById("release_date").innerHTML = movie.release_date;
+  document.getElementById("release_date").innerHTML = movie.release_date;
 
-  window.document.getElementById("poster_path").src = movie.poster_path
+  document.getElementById("poster_path").src = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : "./Assets/Img/no-image.png";
 
   window.document.getElementById("Backdrop_path").src =
     `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+  //
 }
+
 //Function de requisicao de filmes para pesquisa
 async function buscarFilmes(query) {
   try {
@@ -52,8 +54,8 @@ async function buscarFilmes(query) {
       `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&language=pt-BR`,
       {
         headers: {
-          accept: "Application/json",
-          Authorization: `bearer ${TOKEN}`,
+          accept: "application/json",
+          Authorization: `Bearer ${TOKEN}`,
         },
       },
     );
@@ -71,6 +73,44 @@ async function buscarFilmes(query) {
     console.error("Erro:", error);
   }
 }
+
+//função de Busca de filmes
+
+function mostrarResultados(filmes) {
+  if (!filmes || filmes.length === 0) return;
+
+  const container = document.getElementById("resultados");
+  container.innerHTML = "";
+
+  filmes.slice(0, 5).forEach((filme) => {
+    const div = document.createElement("div");
+    div.textContent = filme.title;
+
+    div.style.cursor = "pointer";
+
+    div.onclick = () => {
+      mostrarFilme(filme);
+      container.innerHTML = ""; // limpa sugestões
+    };
+
+    container.appendChild(div);
+  });
+}
+
+input.addEventListener("input", () => {
+  clearTimeout(timeout);
+
+  const valor = input.value;
+
+  if (valor.length <= 2) {
+    document.getElementById("resultados").innerHTML = "";
+    return;
+  }
+
+  timeout = setTimeout(() => {
+    buscarFilmes(valor);
+  }, 300);
+});
 
 /*const botao = document.getElementById("meuBotao");
 
