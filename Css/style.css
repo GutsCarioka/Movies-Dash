@@ -1,21 +1,86 @@
 * {
-  background-color: #f2e3d0;
   margin: 0;
   padding: 0;
 }
 
-#head,
+.head,
 #logo,
-#nav ul,
-#nav ul li,#searchBar {
+#nav ul li,
+#searchBar {
+  padding: 5px;
+  text-decoration: none;
+  list-style: none;
+}
+#logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: aliceblue;
+}
+
+#nav a {
+  text-decoration: none;
+  color: rgba(242, 244, 247, 0.685);
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+#nav ul {
+  text-decoration: none;
+  display: flex;
+  gap: 20px;
+  list-style-type: style none;
+  margin: 0;
+  padding: 0;
+}
+#nav ul :hover {
+  transform: scale(1.1);
+}
+header {
+  border: #222 solid 2px;
+  background: #414141;
   display: flex;
   flex-direction: row;
   align-items: center;
-  list-style: none;
-  text-decoration: none;
   justify-content: space-between;
+}
+header #searchBar {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  background-color: #f0f2f5;
+  border-radius: 30px;
+  padding: 5px 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+header #searchBar input {
+  border: none;
+  background: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  color: #333;
+  flex: 1; /*Faz o input ocupar o espaço restante*/
+}
+Header #searchBar button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
   padding: 5px;
-  z-index: 1;
+  transition: transform 0.2s;
+}
+#searchBar button:hover {
+  transform: scale(1.1);
+}
+
+.popMoviessection #Backdrop {
+  border: #222 solid 2px;
+  z-index: 0;
 }
 
 main {
@@ -23,7 +88,6 @@ main {
   flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
-  z-index: 1;
 }
 
 #Backdrop {
@@ -34,8 +98,6 @@ main {
   position: absolute;
   height: 675px;
   height: auto;
-  z-index: 0;
-  border: red solid 1px;
 }
 #Backdrop img {
   width: 100%;
@@ -49,7 +111,7 @@ main {
   justify-content: space-between;
   width: 45vw;
   margin-top: 40vh;
-  z-index: 1;
+  z-index: 0;
 }
 
 #Movie_info img {
@@ -75,4 +137,8 @@ main {
 
 .item-resultado:hover {
   background: #333;
+}
+
+.logo {
+  padding: 15px;
 }
