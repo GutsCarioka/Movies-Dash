@@ -23,9 +23,29 @@ async function getPopularMovies() {
 
     listaFilmes = data.results;
 
-    mostrarFilme(listaFilmes[0]);
+    pegarDetalhefilmes(listaFilmes[0].id);
   } catch (error) {
     console.error("Erro ao buscar filmes populares:", error);
+  }
+}
+
+//Requisição mais detalhada se baseando no ID dos Filmes
+async function pegarDetalhefilmes(movieId) {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/movie/${movieId}?language=pt-BR&append_to_response=credits`,
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: `bearer ${TOKEN}`,
+        },
+      },
+    );
+    const movie = await response.json();
+
+    mostrarFilme(movie);
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -44,7 +64,12 @@ function mostrarFilme(movie) {
 
   window.document.getElementById("Backdrop_path").src =
     `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
-  //
+
+  //Director Information
+  const director = movie.credits.crew.find(
+    (person) => person.job === "Director",
+  );
+  document.getElementById("Director").innerHTML = director.name;
 }
 
 //Function de requisicao de filmes para pesquisa

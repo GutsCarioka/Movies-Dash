@@ -1,9 +1,9 @@
 BD Link:
-Link de requisição do filme: 
-    https://api.themoviedb.org/3/movie/popular?api_key=8f983316167b81840e3ffdcc9f572aa4&language=pt-BR
+Link de requisição do filme:
+https://api.themoviedb.org/3/movie/popular?api_key=8f983316167b81840e3ffdcc9f572aa4&language=pt-BR
 
-Link de requisição de busca: 
-    https://api.themoviedb.org/3/search/movie?api_key=8f983316167b81840e3ffdcc9f572aa4&query=batman
+Link de requisição de busca:
+https://api.themoviedb.org/3/search/movie?api_key=8f983316167b81840e3ffdcc9f572aa4&query=batman
 
 Foram criados no dia 11/03
 -Requisição API V3 Auth
@@ -17,3 +17,8 @@ Proximos Passos
 - Criar uma aba que mostre os filmes selecionados mais populares
 - Verificar alteração de pagina
 - ler documentação API
+
+Processos 15/07
+Ajeitar a area de busca (endireitar o quadrado e estilizar)
+Resolver a requisição do nome do diretor
+Começar a criar a pagina Home

@@ -44,6 +44,8 @@ header {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  z-index: 9999;
 }
 header #searchBar {
   display: flex;
@@ -78,11 +80,6 @@ Header #searchBar button {
   transform: scale(1.1);
 }
 
-.popMoviessection #Backdrop {
-  border: #222 solid 2px;
-  z-index: 0;
-}
-
 main {
   display: flex;
   flex-direction: row-reverse;
@@ -96,21 +93,22 @@ main {
   background-size: cover;
   pointer-events: none;
   position: absolute;
-  height: 675px;
+  height: 20vh;
   height: auto;
+  border: #222 solid;
+  z-index: 0;
 }
 #Backdrop img {
-  width: 100%;
   height: auto;
-  opacity: 0.5;
-  width: 1200px;
+  opacity: 0.4;
+  width: 100vw;
 }
 #Movie_info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 45vw;
-  margin-top: 40vh;
+  margin-top: 30vh;
   z-index: 0;
 }
 
@@ -124,9 +122,11 @@ main {
 }
 
 #resultados {
-  background: #222;
+  background-color: #f0f2f5;
   position: absolute;
   width: 300px;
+  height: auto;
+  padding-top: 15px;
 }
 
 .item-resultado {
