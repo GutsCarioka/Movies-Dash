@@ -43,6 +43,9 @@ async function pegarDetalhefilmes(movieId) {
     );
     const movie = await response.json();
 
+    console.log(movie.title);
+    console.log(movie.credits);
+
     mostrarFilme(movie);
   } catch (error) {
     console.error(error);
@@ -69,7 +72,9 @@ function mostrarFilme(movie) {
   const director = movie.credits.crew.find(
     (person) => person.job === "Director",
   );
-  document.getElementById("Director").innerHTML = director.name;
+  window.document.getElementById("Director").innerHTML = director
+    ? director.name
+    : "Não encontrado";
 }
 
 //Function de requisicao de filmes para pesquisa
@@ -114,7 +119,7 @@ function mostrarResultados(filmes) {
     div.style.cursor = "pointer";
 
     div.onclick = () => {
-      mostrarFilme(filme);
+      mostrarFilme(filme.id);
       container.innerHTML = ""; // limpa sugestões
     };
 
