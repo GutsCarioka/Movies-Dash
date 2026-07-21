@@ -63,7 +63,7 @@ header #searchBar input {
   border: none;
   background: none;
   outline: none;
-  padding: 10px;
+  padding: 5px;
   font-size: 16px;
   color: #333;
   flex: 1; /*Faz o input ocupar o espaço restante*/
@@ -123,8 +123,6 @@ main {
 
 #resultados {
   background-color: #f0f2f5;
-  position: absolute;
-  width: 300px;
   height: auto;
   padding-top: 15px;
 }

@@ -9,6 +9,10 @@ let timeout = null;
 //Variavel Global que vai armazenar a lista de filmes populares retornada pela API, permitindo que seja acessada e manipulada em diferentes partes do código conforme necessário.
 let listaFilmes = [];
 
+// ==========================
+// Filmes Populares
+// ==========================
+
 async function getPopularMovies() {
   try {
     const response = await fetch(`${BASE_URL}/movie/popular?language=pt-BR`, {
@@ -23,13 +27,18 @@ async function getPopularMovies() {
 
     listaFilmes = data.results;
 
-    pegarDetalhefilmes(listaFilmes[0].id);
+    if (listaFilmes.length > 0) {
+      pegarDetalhefilmes(listaFilmes[0].id);
+    }
   } catch (error) {
     console.error("Erro ao buscar filmes populares:", error);
   }
 }
 
-//Requisição mais detalhada se baseando no ID dos Filmes
+// ==========================
+// Detalhes do Filme
+// ==========================
+
 async function pegarDetalhefilmes(movieId) {
   try {
     const response = await fetch(
@@ -37,51 +46,72 @@ async function pegarDetalhefilmes(movieId) {
       {
         headers: {
           accept: "application/json",
-          Authorization: `bearer ${TOKEN}`,
+          Authorization: `Bearer ${TOKEN}`,
         },
       },
     );
-    const movie = await response.json();
 
-    console.log(movie.title);
-    console.log(movie.credits);
+    const movie = await response.json();
 
     mostrarFilme(movie);
   } catch (error) {
-    console.error(error);
+    console.error("Erro ao buscar detalhes:", error);
   }
 }
 
+// ==========================
+// Mostrar Filme
+// ==========================
+
 function mostrarFilme(movie) {
-  document.getElementById("subtitle").innerHTML = movie.overview;
+  document.getElementById("title").textContent = movie.title || "Sem título";
 
-  document.getElementById("title").innerHTML = movie.title;
+  document.getElementById("subtitle").textContent =
+    movie.overview || "Sem descrição";
 
-  document.getElementById("original_title").innerHTML = movie.original_title;
+  document.getElementById("original_title").textContent =
+    movie.original_title || "-";
 
-  document.getElementById("release_date").innerHTML = movie.release_date;
+  document.getElementById("release_date").textContent =
+    movie.release_date || "-";
 
-  document.getElementById("poster_path").src = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : "./Assets/Img/no-image.png";
+  // Poster
+  const poster = document.getElementById("poster_path");
 
-  window.document.getElementById("Backdrop_path").src =
-    `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+  if (movie.poster_path) {
+    poster.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  } else {
+    poster.src = "";
+  }
 
-  //Director Information
-  const director = movie.credits.crew.find(
+  // Backdrop
+  const backdrop = document.getElementById("Backdrop_path");
+
+  if (movie.backdrop_path) {
+    backdrop.src = `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`;
+  } else {
+    backdrop.src = "";
+  }
+
+  // Diretor
+  const director = movie.credits?.crew?.find(
     (person) => person.job === "Director",
   );
-  window.document.getElementById("Director").innerHTML = director
-    ? director.name
-    : "Não encontrado";
+
+  document.getElementById("Director").textContent =
+    director?.name || "Não encontrado";
 }
 
-//Function de requisicao de filmes para pesquisa
+// ==========================
+// Buscar Filmes
+// ==========================
+
 async function buscarFilmes(query) {
   try {
     const response = await fetch(
-      `${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&language=pt-BR`,
+      `${BASE_URL}/search/movie?query=${encodeURIComponent(
+        query,
+      )}&language=pt-BR`,
       {
         headers: {
           accept: "application/json",
@@ -100,39 +130,45 @@ async function buscarFilmes(query) {
 
     mostrarResultados(data.results);
   } catch (error) {
-    console.error("Erro:", error);
+    console.error(error);
   }
 }
 
-//função de Busca de filmes
+// ==========================
+// Sugestões
+// ==========================
 
 function mostrarResultados(filmes) {
-  if (!filmes || filmes.length === 0) return;
-
   const container = document.getElementById("resultados");
+
   container.innerHTML = "";
 
   filmes.slice(0, 5).forEach((filme) => {
     const div = document.createElement("div");
-    div.textContent = filme.title;
 
+    div.textContent = filme.title;
     div.style.cursor = "pointer";
 
     div.onclick = () => {
-      mostrarFilme(filme.id);
-      container.innerHTML = ""; // limpa sugestões
+      pegarDetalhefilmes(filme.id);
+      container.innerHTML = "";
+      input.value = filme.title;
     };
 
     container.appendChild(div);
   });
 }
 
+// ==========================
+// Busca Automática
+// ==========================
+
 input.addEventListener("input", () => {
   clearTimeout(timeout);
 
-  const valor = input.value;
+  const valor = input.value.trim();
 
-  if (valor.length <= 2) {
+  if (valor.length < 2) {
     document.getElementById("resultados").innerHTML = "";
     return;
   }
@@ -142,20 +178,41 @@ input.addEventListener("input", () => {
   }, 300);
 });
 
-/*const botao = document.getElementById("meuBotao");
+// ==========================
+// Botão Pesquisar
+// ==========================
 
-botao.onclick = function () {
-  const valorDigitado = document.getElementById("pesq").value.toLowerCase();
-  const filtrados = listaFilmes.filter((filme) =>
-    filme.title.toLowerCase().includes(valorDigitado),
+const botao = document.getElementById("meuBotao");
+
+botao.onclick = async () => {
+  const valor = input.value.trim();
+
+  if (valor === "") return;
+
+  const response = await fetch(
+    `${BASE_URL}/search/movie?query=${encodeURIComponent(
+      valor,
+    )}&language=pt-BR`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    },
   );
 
-  if (filtrados.length > 0) {
-    mostrarFilme(filtrados[0]); //Mostra primeiro filme da lista filtrada
+  const data = await response.json();
+
+  if (data.results.length > 0) {
+    pegarDetalhefilmes(data.results[0].id);
+    document.getElementById("resultados").innerHTML = "";
   } else {
-    alert("Filme Não Encontrado, Ou ele não é popular ou ele é ruim!");
+    alert("Filme não encontrado.");
   }
 };
-*/
+
+// ==========================
+// Inicialização
+// ==========================
 
 getPopularMovies();
